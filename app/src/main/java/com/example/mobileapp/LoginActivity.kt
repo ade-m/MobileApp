@@ -1,5 +1,6 @@
 package com.example.mobileapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -39,6 +40,23 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             //panggil login firebase
+            auth.signInWithEmailAndPassword(email,password)
+                .addOnSuccessListener {
+                    Toast.makeText(this,
+                        "Login Berhasil",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    startActivity(Intent(this, MainActivity::class.java))
+                    finish()
+                }
+                .addOnFailureListener { error ->
+                    Toast.makeText(
+                        this,
+                        "Login Gagal : ${error.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
         }
     }
 }
